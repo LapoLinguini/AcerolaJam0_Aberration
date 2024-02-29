@@ -2,13 +2,13 @@
 #
 # Get latest from https://github.com/github/gitignore/blob/main/Unity.gitignore
 #
-/[Ll]ibrary/
-/[Tt]emp/
-/[Oo]bj/
-/[Bb]uild/
-/[Bb]uilds/
-/[Ll]ogs/
-/[Uu]ser[Ss]ettings/
+AcerolaJam0_Aberration_Project/[Ll]ibrary/
+AcerolaJam0_Aberration_Project/[Tt]emp/
+AcerolaJam0_Aberration_Project/[Oo]bj/
+AcerolaJam0_Aberration_Project/[Bb]uild/
+AcerolaJam0_Aberration_Project/[Bb]uilds/
+AcerolaJam0_Aberration_Project/[Ll]ogs/
+AcerolaJam0_Aberration_Project/[Uu]ser[Ss]ettings/
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
