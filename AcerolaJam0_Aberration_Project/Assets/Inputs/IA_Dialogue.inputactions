@@ -1,0 +1,56 @@
+{
+    "name": "IA_Dialogue",
+    "maps": [
+        {
+            "name": "Dialogue",
+            "id": "41c41f0b-8070-491c-9b13-0302a356c686",
+            "actions": [
+                {
+                    "name": "SkipText",
+                    "type": "Button",
+                    "id": "49b79813-18bb-47f8-b183-512b47adca98",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "6a2200d2-59f1-41f2-8eb3-287af50de8ec",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "SkipText",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d25f709c-608d-498f-9776-6adf512a2123",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "SkipText",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "417c81d4-7c31-4323-b265-5c7711203d95",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "SkipText",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

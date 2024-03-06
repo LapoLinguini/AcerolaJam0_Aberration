@@ -48,7 +48,8 @@ public class ButtonSpriteChanger : MonoBehaviour, IPointerEnterHandler, IPointer
 
     public void StartGame()
     {
-        print("START GAME");
+        GameManager.Instance._gameStarted = true;
+        Cursor.lockState = CursorLockMode.Locked;
     }
     public void Options()
     {

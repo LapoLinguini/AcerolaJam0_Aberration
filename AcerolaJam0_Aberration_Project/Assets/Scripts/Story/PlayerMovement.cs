@@ -42,7 +42,7 @@ namespace Story
 
         Vector3 _moveDirection = Vector2.zero;
         CharacterController controller;
-        Animator anim;
+        public Animator anim {  get; private set; }
 
         public static Action<Transform> OnViewMoved;
 
@@ -159,6 +159,7 @@ namespace Story
                     EnableInputActionsSwitch(_inputActions, true);
                     break;
                 case ControllerMode.SoftLocked:
+                    EnableInputActionsSwitch(new[] { IA_look }, true);
                     EnableInputActionsSwitch(new[] { IA_move, IA_interact }, false);
                     break;
                 case ControllerMode.Locked:
@@ -168,6 +169,9 @@ namespace Story
                     break;
             }
         }
+
+        [ContextMenu("Switch Controller Mode")]
+        void DEBUG_SwitchControllerMode() => SwitchControllerMode(_controllerMode);
     }
 
 #if UNITY_EDITOR
