@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using TMPro;
@@ -112,14 +113,30 @@ public class DialogueManager : MonoBehaviour
         _currentMessages = _dialogue.messages;
 
         //Displays all the dialogue's info 
-        _characterName.colorGradientPreset = _currentMessages[_activeMessage]._character._textGradient;
-        _characterName.text = _currentMessages[_activeMessage]._character._name;
+        Message activeMessage = _currentMessages[_activeMessage];
+
+        _characterName.colorGradientPreset = activeMessage._character._textGradient;
+        _characterName.text = activeMessage._character._name;
         _canSkipIcon.gameObject.SetActive(false);
         _currentBuildingText = StartCoroutine(ShowText());
 
+        if (activeMessage._saturationLoss != 0 || activeMessage._vignetteGain != 0)
+        {
+            GameManager.Instance.DarkenAtmosphere(activeMessage._saturationLoss, activeMessage._vignetteGain);
+        }
+        if (activeMessage._stopMusic)
+            StartCoroutine(AudioManager.Instance.StopAllMusicFade(3f));
+
+        if (activeMessage._startMusic != null && activeMessage._startMusic != "")
+            AudioManager.Instance.PlayMusicFadeIn(activeMessage._startMusic, activeMessage._startVolume, 6f);
+
+        if (activeMessage._increaseMusicVol != 0)
+            AudioManager.Instance.IncreaseMusicVolume(activeMessage._increaseMusicVol, activeMessage._increaseMusicTime);
+
+
         //Turns on the dialogue UI
         _dialogueUI.SetActive(true);
-        SetTextUIType(_currentMessages[_activeMessage]._character._dialogueType);
+        SetTextUIType(activeMessage._character._dialogueType);
         _dialogueBox.gameObject.SetActive(true);
     }
     IEnumerator ShowText()
@@ -204,6 +221,9 @@ public class DialogueManager : MonoBehaviour
                     StopCoroutine(_spriteCycleCoroutine);
                 break;
             case DialogueType.Degenerate:
+
+                if (_spriteCycleCoroutine != null)
+                    StopCoroutine(_spriteCycleCoroutine);
 
                 _dialogueBox.sprite = _dialogueSpriteDegenerate[_currentSprite];
                 _canSkipIcon.sprite = _skipIconDegenerate[_currentSprite];

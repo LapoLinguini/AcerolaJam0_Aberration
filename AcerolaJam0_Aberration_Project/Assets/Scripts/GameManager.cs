@@ -1,7 +1,9 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -14,9 +16,19 @@ public class GameManager : MonoBehaviour
     public bool _gameStarted = false;
     public int _locationChangeCount = 0;
 
+    [Header("Post Processing")]
+    [SerializeField] PostProcessProfile _storyPostProcess;
+    ColorGrading _storyColorGrading;
+    float _currentSaturationValue = 0;
+    Tweener _saturationTween;
+    Vignette _storyVignette;
+    float _currentVignetteValue = 0;
+    Tweener _vignetteTween;
+
+    [SerializeField] PostProcessProfile _duneGameplayPostProcess;
+
     [Header("Scene Loader")]
     public int _sceneToLoadIndex = 0;
-
 
     bool _gameIsPaused = false;
     float _currentGameTime = 1;
@@ -37,10 +49,48 @@ public class GameManager : MonoBehaviour
         }
 
         CapFrameRate();
+
+        _storyPostProcess.TryGetSettings(out _storyColorGrading);
+        _storyPostProcess.TryGetSettings(out _storyVignette);
+        RestoreAtmoshpere();
     }
     private void Update()
     {
-        PauseGame();
+        if (Input.GetKeyDown(KeyCode.Escape) && _gameStarted)
+            PauseGame();
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+            Time.timeScale = 1;
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+            Time.timeScale = 2;
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+            Time.timeScale = 4;
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+            Time.timeScale = 6;
+    }
+    public void DarkenAtmosphere(int saturationLoss, float vignetteGain)
+    {
+        float currentSaturation = _storyColorGrading.saturation.value;
+        float currentVignette = _storyVignette.intensity.value;
+
+        _currentSaturationValue -= Mathf.Abs(saturationLoss);
+        _currentVignetteValue += Mathf.Abs(vignetteGain);
+
+        if (_saturationTween != null)
+            _saturationTween.Kill();
+
+        if (_vignetteTween != null)
+            _vignetteTween.Kill();
+
+        _saturationTween = DOVirtual.Float(currentSaturation, _currentSaturationValue, 2.5f, s => _storyColorGrading.saturation.value = s);
+        _vignetteTween = DOVirtual.Float(currentVignette, _currentVignetteValue, 2.5f, v => _storyVignette.intensity.value = v);
+    }
+    public void RestoreAtmoshpere()
+    {
+        _storyColorGrading.saturation.value = 0;
+        _currentSaturationValue = 0;
+        _storyVignette.intensity.value = 0.25f;
+        _currentVignetteValue = 0.25f;
     }
     public void LoadScene(int sceneIndex) => StartCoroutine(LoadSceneAsync(sceneIndex));
     IEnumerator LoadSceneAsync(int index)
@@ -53,18 +103,17 @@ public class GameManager : MonoBehaviour
         }
         _locationChangeCount++;
     }
-    void PauseGame()
+    public void PauseGame()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && _gameStarted)
-        {
-            _gameIsPaused = !_gameIsPaused;
+        _gameIsPaused = !_gameIsPaused;
 
-            Time.timeScale = _gameIsPaused ? 0 : _currentGameTime;
+        Time.timeScale = _gameIsPaused ? 0 : _currentGameTime;
 
-            Cursor.lockState = _gameIsPaused ? CursorLockMode.None : CursorLockMode.Locked;
+        Cursor.lockState = _gameIsPaused ? CursorLockMode.None : CursorLockMode.Locked;
 
-            OnGamePaused?.Invoke(_gameIsPaused);
-        }
+        OnGamePaused?.Invoke(_gameIsPaused);
+
+        PauseMenu.Instance.SwitchMenuUI(_gameIsPaused);
     }
     void CapFrameRate()
     {

@@ -16,6 +16,10 @@ MonoBehaviour:
   - _character: {fileID: 11400000, guid: ff76de31e0535ce4f98410b2cb85e0da, type: 2}
     _message: ...I can't think straight anymore...
     _instantText: 0
+    _saturationLoss: 0
+    _vignetteGain: 0
   - _character: {fileID: 11400000, guid: ff76de31e0535ce4f98410b2cb85e0da, type: 2}
-    _message: ...I'm getting blind...
+    _message: ...I'm going blind...
     _instantText: 0
+    _saturationLoss: 0
+    _vignetteGain: 0

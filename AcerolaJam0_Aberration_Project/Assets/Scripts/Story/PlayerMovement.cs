@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using UnityEditor;
 using UnityEngine;
@@ -9,7 +10,8 @@ namespace Story
     {
         Free,
         SoftLocked,
-        Locked
+        Locked,
+        LookOnly
     }
     public class PlayerMovement : MonoBehaviour
     {
@@ -24,7 +26,15 @@ namespace Story
         [SerializeField] float _movementSmoother = 20;
         [SerializeField] float _gravityScale = 1;
         [HideInInspector] public ControllerMode _controllerMode = ControllerMode.Free;
+        public bool _isWalking { get; set; } = false;
         Vector2 _interpolatedAxis = Vector2.zero;
+
+        [Header("Interact")]
+        [SerializeField] float _interactDistance = 2;
+        public Transform _rightHandT;
+        RaycastHit _interactableHit;
+        IInteractable _currentInteractable = null;
+        bool _interactableInReach = false;
 
         [Header("Look")]
         [SerializeField] Transform _cameraPosT;
@@ -42,7 +52,7 @@ namespace Story
 
         Vector3 _moveDirection = Vector2.zero;
         CharacterController controller;
-        public Animator anim {  get; private set; }
+        public Animator anim { get; private set; }
 
         public static Action<Transform> OnViewMoved;
 
@@ -80,11 +90,15 @@ namespace Story
         }
         private void Update()
         {
-            MovePlayer();
+            if (_controllerMode != ControllerMode.Locked)
+                MovePlayer();
 
             RotateView();
 
-            Gravity();
+            if (_controllerMode != ControllerMode.Locked)
+                Gravity();
+
+            CheckForInteractables();
         }
         void MovePlayer()
         {
@@ -92,14 +106,14 @@ namespace Story
 
             _moveDirection = transform.right.normalized * _interpolatedAxis.x + transform.forward.normalized * _interpolatedAxis.y;
 
-            bool isMoving = IA_move.ReadValue<Vector2>() == Vector2.zero ? false : true;
+            _isWalking = IA_move.ReadValue<Vector2>() == Vector2.zero ? false : true;
 
             anim.SetFloat("walkX", _interpolatedAxis.x);
             anim.SetFloat("walkY", _interpolatedAxis.y);
 
             anim.SetFloat("walkSpeed", _movementSpeed);
 
-            anim.SetBool("isWalking", isMoving);
+            anim.SetBool("isWalking", _isWalking);
 
             controller.Move(_moveDirection * Time.deltaTime * _movementSpeed);
         }
@@ -111,6 +125,11 @@ namespace Story
             switch (_controllerMode)
             {
                 case ControllerMode.Free:
+                    xRot = Mathf.Clamp(xRot, _maxDownRot, _maxUpRot);
+                    transform.rotation = Quaternion.Euler(0, yRot, 0);
+                    _cameraPosT.rotation = Quaternion.Euler(-xRot, transform.rotation.eulerAngles.y, 0);
+                    break;
+                case ControllerMode.LookOnly:
                     xRot = Mathf.Clamp(xRot, _maxDownRot, _maxUpRot);
                     transform.rotation = Quaternion.Euler(0, yRot, 0);
                     _cameraPosT.rotation = Quaternion.Euler(-xRot, transform.rotation.eulerAngles.y, 0);
@@ -128,9 +147,38 @@ namespace Story
 
             controller.Move(gravity * Time.deltaTime * _gravityScale);
         }
+        void CheckForInteractables()
+        {
+            if (Physics.Raycast(_cameraPosT.position, _cameraPosT.forward, out _interactableHit, _interactDistance))
+            {
+                if (_interactableHit.transform.TryGetComponent(out IInteractable interactable))
+                {
+                    _currentInteractable = interactable;
+                    _currentInteractable.Interactable(true);
+                    _interactableInReach = true;
+                    return;
+                }
+                if (_currentInteractable != null)
+                    _currentInteractable.Interactable(false);
+
+                _currentInteractable = null;
+                _interactableInReach = false;
+                return;
+            }
+            if (_currentInteractable != null)
+                _currentInteractable.Interactable(false);
+
+            _currentInteractable = null;
+            _interactableInReach = false;
+        }
         void Interact(InputAction.CallbackContext context)
         {
-            print("INTERACTED");
+            if (!_interactableInReach) return;
+
+            if (_currentInteractable != null)
+            {
+                _currentInteractable.Interact();
+            }
         }
         void EnableInputActionsSwitch(InputAction[] inputActions, bool enable)
         {
@@ -162,16 +210,39 @@ namespace Story
                     EnableInputActionsSwitch(new[] { IA_look }, true);
                     EnableInputActionsSwitch(new[] { IA_move, IA_interact }, false);
                     break;
+                case ControllerMode.LookOnly:
+                    EnableInputActionsSwitch(new[] { IA_look }, true);
+                    EnableInputActionsSwitch(new[] { IA_move, IA_interact }, false);
+                    break;
                 case ControllerMode.Locked:
-                    EnableInputActionsSwitch(_inputActions, false);
+                    SlowlyLock();
                     break;
                 default:
                     break;
             }
         }
+        void SlowlyLock()
+        {
+            EnableInputActionsSwitch(_inputActions, false);
+
+            _isWalking = false;
+            anim.SetBool("isWalking", _isWalking);
+
+            _cameraPosT.DOLocalRotate(Vector3.zero, 1).SetEase(Ease.InOutSine).OnComplete(() =>
+            {
+                xRot = -_cameraPosT.localRotation.eulerAngles.x;
+                yRot = transform.eulerAngles.y;
+            });
+        }
 
         [ContextMenu("Switch Controller Mode")]
         void DEBUG_SwitchControllerMode() => SwitchControllerMode(_controllerMode);
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawLine(_cameraPosT.position, _cameraPosT.position + _cameraPosT.forward * _interactDistance);
+        }
     }
 
 #if UNITY_EDITOR

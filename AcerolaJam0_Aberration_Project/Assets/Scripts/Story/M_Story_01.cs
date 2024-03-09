@@ -35,7 +35,10 @@ public class M_Story_01 : MonoBehaviour
     void DialogueFinished()
     {
         if (GameManager.Instance._locationChangeCount == 0)
-            GameManager.Instance.LoadScene(1);
+        {
+            player.anim.SetBool("isPutering", false);
+            player.anim.SetTrigger("ClosePuter");
+        }
     }
     void CheckLocationChangeCount(int i)
     {
@@ -45,13 +48,26 @@ public class M_Story_01 : MonoBehaviour
                 player.SwitchControllerMode(ControllerMode.Locked);
                 player.transform.position = chairPos.position;
                 player.anim.SetBool("isPutering", true);
+                TransitionManager.Instance._sceneToTransitionIndex = 1;
                 menuCamera.enabled = true;
+                menuCamera.GetComponent<AudioListener>().enabled = true;
                 playerCamera.enabled = false;
+                playerCamera.GetComponent<AudioListener>().enabled = false;
+
+                AudioManager.Instance.sfxSource.volume = 0;
                 break;
             case 3:
+                playerCamera.enabled = true;
+                playerCamera.GetComponent<AudioListener>().enabled = true;
+                menuCamera.enabled = false;
+                menuCamera.GetComponent<AudioListener>().enabled = false;
                 player.SwitchControllerMode(ControllerMode.SoftLocked);
                 break;
             case 6:
+                playerCamera.enabled = true;
+                playerCamera.GetComponent<AudioListener>().enabled = true;
+                menuCamera.enabled = false;
+                menuCamera.GetComponent<AudioListener>().enabled = false;
                 player.SwitchControllerMode(ControllerMode.SoftLocked);
                 break;
             default:
@@ -75,7 +91,9 @@ public class M_Story_01 : MonoBehaviour
         playerCamera.transform.rotation = menuCamera.transform.rotation;
 
         playerCamera.enabled = true;
+        playerCamera.GetComponent<AudioListener>().enabled = true;
         menuCamera.enabled = false;
+        menuCamera.GetComponent<AudioListener>().enabled = false;
 
         player.SwitchControllerMode(ControllerMode.SoftLocked);
 

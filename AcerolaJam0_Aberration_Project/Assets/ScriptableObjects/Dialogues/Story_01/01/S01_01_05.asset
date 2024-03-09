@@ -19,9 +19,3 @@ MonoBehaviour:
   - _character: {fileID: 11400000, guid: ff76de31e0535ce4f98410b2cb85e0da, type: 2}
     _message: ...I feel...
     _instantText: 0
-  - _character: {fileID: 11400000, guid: ff76de31e0535ce4f98410b2cb85e0da, type: 2}
-    _message: .....I feel I could eat......
-    _instantText: 0
-  - _character: {fileID: 11400000, guid: ff76de31e0535ce4f98410b2cb85e0da, type: 2}
-    _message: .....I.....
-    _instantText: 0
