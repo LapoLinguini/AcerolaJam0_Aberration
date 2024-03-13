@@ -1,4 +1,3 @@
-using DG.Tweening;
 using UnityEngine;
 
 public class M_Story_02 : MonoBehaviour
@@ -11,8 +10,6 @@ public class M_Story_02 : MonoBehaviour
     [SerializeField] GameObject ShelvesScene;
     [SerializeField] GameObject CashierScene;
 
-    AudioSource _darkAmbient;
-
     void Start()
     {
         FridgeScene.SetActive(true);
@@ -22,8 +19,8 @@ public class M_Story_02 : MonoBehaviour
         TransitionManager.Instance.FadeIn();
         TransitionManager.Instance._sceneToTransitionIndex = 2;
 
-        AudioManager.Instance.PlayMusic(out _darkAmbient, "DarkAmbient", 0);
-        DOVirtual.Float(_darkAmbient.volume, 0.2f, 10f, v => _darkAmbient.volume = v);
+        if (GameManager.Instance._locationChangeCount == 1)
+            AudioManager.Instance.PlayMusicFadeIn("DarkAmbient", 0.2f, 10);
     }
 
     public void StartDialogue(int dialogueIndex)

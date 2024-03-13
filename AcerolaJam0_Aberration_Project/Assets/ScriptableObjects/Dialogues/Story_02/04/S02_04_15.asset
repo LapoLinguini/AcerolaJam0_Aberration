@@ -18,6 +18,7 @@ MonoBehaviour:
     _instantText: 0
     _saturationLoss: 0
     _vignetteGain: 0
+    _glitch: 0
     _increaseMusicVol: 0
     _increaseMusicTime: 0
     _stopMusic: 0
@@ -28,6 +29,7 @@ MonoBehaviour:
     _instantText: 0
     _saturationLoss: 20
     _vignetteGain: 0.075
+    _glitch: 1
     _increaseMusicVol: 0.075
     _increaseMusicTime: 2
     _stopMusic: 0

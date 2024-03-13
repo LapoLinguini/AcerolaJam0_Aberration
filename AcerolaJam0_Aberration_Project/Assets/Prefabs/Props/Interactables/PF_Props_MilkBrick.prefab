@@ -98,6 +98,7 @@ MonoBehaviour:
   storyManager2: {fileID: 0}
   _player: {fileID: 0}
   _milkPickUpT: {fileID: 0}
+  _cashier: {fileID: 0}
 --- !u!65 &4599916106264047189
 BoxCollider:
   m_ObjectHideFlags: 0

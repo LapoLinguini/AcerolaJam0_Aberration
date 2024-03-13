@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using static Unity.VisualScripting.Member;
 
 public class AudioManager : MonoBehaviour
 {
@@ -100,21 +101,16 @@ public class AudioManager : MonoBehaviour
         }
         musicSources.Clear();
     }
-    public IEnumerator StopAllMusicFade(float FadeTime = 1)
+    public void StopAllMusicFade(float FadeTime = 1)
     {
         foreach (var source in musicSources)
         {
             float startVolume = source.volume;
-
-            while (source.volume > 0)
+            DOVirtual.Float(startVolume, 0, FadeTime, v => source.volume = v).OnComplete(() =>
             {
-                source.volume -= startVolume * Time.deltaTime / FadeTime;
-
-                yield return null;
-            }
-
-            source.Stop();
-            Destroy(source);
+                source.Stop();
+                Destroy(source);
+            });
         }
         musicSources.Clear();
     }
@@ -143,6 +139,10 @@ public class AudioManager : MonoBehaviour
             sfxSource.volume = volume;
             sfxSource.PlayOneShot(clip);
         }
+    }
+    public void StopSFX()
+    {
+        sfxSource.Stop();
     }
     public void PlaySFXRandomPitch(string name, float volume = 1, float minPitch = 0.75f, float maxPitch = 1.25f)
     {

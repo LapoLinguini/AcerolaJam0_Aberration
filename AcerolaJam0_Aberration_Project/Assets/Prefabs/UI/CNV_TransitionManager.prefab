@@ -117,6 +117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 8620870780369320051}
+  _transitionPanel: {fileID: 8048050201723186338}
   _sceneToTransitionIndex: 0
 --- !u!95 &8620870780369320051
 Animator:

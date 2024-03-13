@@ -298,7 +298,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2aefed6aca7ee7049a5e903c66c95327, type: 2}
   - {fileID: 11400000, guid: 267a65e715430d240a70e24c33bd30eb, type: 2}
   - {fileID: 11400000, guid: 460abe71a06963246ac42d286cb06a7f, type: 2}
-  - {fileID: 11400000, guid: 257a7de678a36a348ac50c8c123f6774, type: 2}
   _delayBetweenDialogues: 1
   _dialoguesDelay: 0.85
 --- !u!1 &103762755
@@ -644,7 +643,7 @@ Transform:
   m_GameObject: {fileID: 327116768}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -19.5, y: 0, z: 34.300003}
+  m_LocalPosition: {x: -19.5, y: 0, z: 42.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -669,8 +668,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 11.883874, z: 44.98503}
-  m_Center: {x: 0, y: 5.217858, z: 8.689701}
+  m_Size: {x: 1, y: 11.883874, z: 59.048706}
+  m_Center: {x: 9.801269e-15, y: 5.217858, z: 8.689701}
 --- !u!1 &367358004
 GameObject:
   m_ObjectHideFlags: 0
@@ -767,7 +766,7 @@ Transform:
   m_GameObject: {fileID: 582915768}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.7, y: 0, z: 1.9}
+  m_LocalPosition: {x: 7.2, y: 0, z: 1.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -792,8 +791,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 11.883874, z: 48.34042}
-  m_Center: {x: 0, y: 5.217858, z: 10.367392}
+  m_Size: {x: 1, y: 11.883874, z: 83.25525}
+  m_Center: {x: 0, y: 5.217858, z: 3.927374}
 --- !u!1 &683622487
 GameObject:
   m_ObjectHideFlags: 0
@@ -809,7 +808,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &683622488
 Transform:
   m_ObjectHideFlags: 0
@@ -1068,7 +1067,7 @@ Transform:
   m_GameObject: {fileID: 1127653430}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -27.4, y: 0, z: 1.9}
+  m_LocalPosition: {x: -33, y: 0, z: 1.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1093,8 +1092,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 11.883874, z: 48.720123}
-  m_Center: {x: 0, y: 5.217858, z: 10.557247}
+  m_Size: {x: 1, y: 11.883874, z: 79.62346}
+  m_Center: {x: 0, y: 5.217858, z: 4.542906}
 --- !u!1 &1158269694
 GameObject:
   m_ObjectHideFlags: 0
@@ -1441,6 +1440,59 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5bcc3adfb36102e47aa891503bdfeb54, type: 3}
+--- !u!1 &1370565668
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1370565669}
+  - component: {fileID: 1370565670}
+  m_Layer: 0
+  m_Name: Wall1 (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1370565669
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1370565668}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -19.5, y: 0, z: -29.9}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1666955599}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!65 &1370565670
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1370565668}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 11.883874, z: 62.842377}
+  m_Center: {x: 9.801269e-15, y: 5.217858, z: 8.689701}
 --- !u!1 &1394514405
 GameObject:
   m_ObjectHideFlags: 0
@@ -1456,7 +1508,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1394514406
 Transform:
   m_ObjectHideFlags: 0
@@ -1624,7 +1676,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1630617842
 Transform:
   m_ObjectHideFlags: 0
@@ -1675,6 +1727,7 @@ Transform:
   - {fileID: 582915769}
   - {fileID: 1127653431}
   - {fileID: 327116769}
+  - {fileID: 1370565669}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1668433346
@@ -2027,10 +2080,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PF_Props_MilkBrick
       objectReference: {fileID: 0}
-    - target: {fileID: 86159620398246716, guid: bf4e5a443f145ec4eb4032e9f9356e80, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 754855531526599046, guid: bf4e5a443f145ec4eb4032e9f9356e80, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.0654688
@@ -2336,18 +2385,6 @@ PrefabInstance:
       propertyPath: storyManager2
       value: 
       objectReference: {fileID: 1806579516}
-    - target: {fileID: 4619477113371437915, guid: 1eda74f5d9e5813429b09ed998b36ac2, type: 3}
-      propertyPath: m_Size.x
-      value: 0.7421728
-      objectReference: {fileID: 0}
-    - target: {fileID: 4619477113371437915, guid: 1eda74f5d9e5813429b09ed998b36ac2, type: 3}
-      propertyPath: m_Size.z
-      value: 1.4813749
-      objectReference: {fileID: 0}
-    - target: {fileID: 4619477113371437915, guid: 1eda74f5d9e5813429b09ed998b36ac2, type: 3}
-      propertyPath: m_Center.x
-      value: -0.5743991
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

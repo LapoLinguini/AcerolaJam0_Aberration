@@ -16,9 +16,33 @@ MonoBehaviour:
   - _character: {fileID: 11400000, guid: ff76de31e0535ce4f98410b2cb85e0da, type: 2}
     _message: It's......
     _instantText: 0
+    _saturationLoss: 0
+    _vignetteGain: 0
+    _glitch: 0
+    _increaseMusicVol: 0
+    _increaseMusicTime: 0
+    _stopMusic: 0
+    _startMusic: 
+    _startVolume: 0
   - _character: {fileID: 11400000, guid: ff76de31e0535ce4f98410b2cb85e0da, type: 2}
     _message: ...empty.....
     _instantText: 0
+    _saturationLoss: 0
+    _vignetteGain: 0
+    _glitch: 1
+    _increaseMusicVol: 0
+    _increaseMusicTime: 0
+    _stopMusic: 0
+    _startMusic: 
+    _startVolume: 0
   - _character: {fileID: 11400000, guid: ff76de31e0535ce4f98410b2cb85e0da, type: 2}
     _message: .....again.....
     _instantText: 0
+    _saturationLoss: 0
+    _vignetteGain: 0
+    _glitch: 0
+    _increaseMusicVol: 0
+    _increaseMusicTime: 0
+    _stopMusic: 0
+    _startMusic: 
+    _startVolume: 0

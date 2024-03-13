@@ -184,6 +184,10 @@ MonoBehaviour:
   sfxClips:
   - name: KeyPress
     clip: {fileID: 8300000, guid: 862368aa8a08ee84a89ccebae2c8d3c2, type: 3}
+  - name: Footstep
+    clip: {fileID: 8300000, guid: 095ed42dd3ead9742bbb9c5c4128eb4e, type: 3}
+  - name: GlitchEffect
+    clip: {fileID: 8300000, guid: 9daef406c365b404cae3fec3572f0b4d, type: 3}
   sfxLoopClips: []
   sfxSource: {fileID: 345049367472866884}
   musicSources: []

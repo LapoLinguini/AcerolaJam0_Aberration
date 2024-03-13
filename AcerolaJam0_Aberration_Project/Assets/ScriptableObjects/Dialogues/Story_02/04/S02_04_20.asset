@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   messages:
   - _character: {fileID: 11400000, guid: 488dbc8207f26b64e8a33adcf505916f, type: 2}
-    _message: You are a MONSTER..
+    _message: You are a MONSTER.
     _instantText: 1
     _saturationLoss: 40
     _vignetteGain: 0.075
+    _glitch: 1
     _increaseMusicVol: 0.075
     _increaseMusicTime: 2
     _stopMusic: 0

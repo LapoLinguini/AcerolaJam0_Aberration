@@ -53,6 +53,7 @@ public class DialogueManager : MonoBehaviour
     public static DialogueManager Instance { get; private set; }
 
     public static Action OnDialogueFinished;
+    public static Action OnGlitchedEffect;
 
     private void Awake()
     {
@@ -122,10 +123,10 @@ public class DialogueManager : MonoBehaviour
 
         if (activeMessage._saturationLoss != 0 || activeMessage._vignetteGain != 0)
         {
-            GameManager.Instance.DarkenAtmosphere(activeMessage._saturationLoss, activeMessage._vignetteGain);
+            GameManager.Instance.DarkenAtmosphereLerp(activeMessage._saturationLoss, activeMessage._vignetteGain);
         }
         if (activeMessage._stopMusic)
-            StartCoroutine(AudioManager.Instance.StopAllMusicFade(3f));
+            AudioManager.Instance.StopAllMusicFade(3f);
 
         if (activeMessage._startMusic != null && activeMessage._startMusic != "")
             AudioManager.Instance.PlayMusicFadeIn(activeMessage._startMusic, activeMessage._startVolume, 6f);
@@ -133,6 +134,8 @@ public class DialogueManager : MonoBehaviour
         if (activeMessage._increaseMusicVol != 0)
             AudioManager.Instance.IncreaseMusicVolume(activeMessage._increaseMusicVol, activeMessage._increaseMusicTime);
 
+        if (activeMessage._glitch)
+            OnGlitchedEffect?.Invoke();
 
         //Turns on the dialogue UI
         _dialogueUI.SetActive(true);

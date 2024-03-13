@@ -18,6 +18,7 @@ MonoBehaviour:
     _instantText: 1
     _saturationLoss: 20
     _vignetteGain: 0.075
+    _glitch: 1
     _increaseMusicVol: 0.075
     _increaseMusicTime: 2
     _stopMusic: 0

@@ -13,6 +13,7 @@ public class I_Fridge : MonoBehaviour, IInteractable
     [SerializeField] int _materialIndex;
     [SerializeField] Color _interactedColor = Color.yellow;
     [SerializeField] M_Story_02 storyManager2;
+    [SerializeField] Transform _fridgeOpenPosT;
     public bool _isInteractable { get; set; } = true;
 
     [Header("DEACTIVATION")]
@@ -76,13 +77,20 @@ public class I_Fridge : MonoBehaviour, IInteractable
     void OpenFridgeDoor()
     {
         ShelveScene.SetActive(true);
+
+        _player.SwitchControllerMode(ControllerMode.Locked);
+        _player.transform.DOMove(_fridgeOpenPosT.position, 2).SetEase(Ease.InOutSine);
+        _player.transform.DORotate(Vector3.zero, 2).SetEase(Ease.InOutSine).OnComplete(() =>
+        {
+            _player.yRot = _player.transform.eulerAngles.y;
+        });
+
         _fridgeDoor.DOLocalRotate(new Vector3(0, 0, -117), 2.5f).SetEase(Ease.InOutSine).OnComplete(() => StartCoroutine(StartDialogue()));
     }
     IEnumerator StartDialogue()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(.75f);
 
-        _player.SwitchControllerMode(ControllerMode.LookOnly);
         storyManager2.StartDialogue(0);
     }
     void SwitchPlayerController()

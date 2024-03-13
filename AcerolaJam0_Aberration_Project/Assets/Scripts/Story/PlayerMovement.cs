@@ -47,7 +47,7 @@ namespace Story
         [HideInInspector] public float _maxDownSoftRot = -30;
         [HideInInspector] public float _maxRightSoftRot = 30;
         [HideInInspector] public float _maxLeftSoftRot = -30;
-        float yRot = 0;
+        public float yRot { get; set; } = 0;
         float xRot = 0;
 
         Vector3 _moveDirection = Vector2.zero;
@@ -114,7 +114,6 @@ namespace Story
             anim.SetFloat("walkSpeed", _movementSpeed);
 
             anim.SetBool("isWalking", _isWalking);
-
             controller.Move(_moveDirection * Time.deltaTime * _movementSpeed);
         }
         void RotateView()
@@ -226,12 +225,14 @@ namespace Story
             EnableInputActionsSwitch(_inputActions, false);
 
             _isWalking = false;
+            _interpolatedAxis = Vector2.zero;
             anim.SetBool("isWalking", _isWalking);
 
             _cameraPosT.DOLocalRotate(Vector3.zero, 1).SetEase(Ease.InOutSine).OnComplete(() =>
             {
                 xRot = -_cameraPosT.localRotation.eulerAngles.x;
                 yRot = transform.eulerAngles.y;
+
             });
         }
 

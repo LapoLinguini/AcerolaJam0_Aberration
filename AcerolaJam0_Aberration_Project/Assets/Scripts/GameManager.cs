@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha6))
             Time.timeScale = 6;
     }
-    public void DarkenAtmosphere(int saturationLoss, float vignetteGain)
+    public void DarkenAtmosphereLerp(int saturationLoss, float vignetteGain)
     {
         float currentSaturation = _storyColorGrading.saturation.value;
         float currentVignette = _storyVignette.intensity.value;
@@ -85,6 +85,11 @@ public class GameManager : MonoBehaviour
         _saturationTween = DOVirtual.Float(currentSaturation, _currentSaturationValue, 2.5f, s => _storyColorGrading.saturation.value = s);
         _vignetteTween = DOVirtual.Float(currentVignette, _currentVignetteValue, 2.5f, v => _storyVignette.intensity.value = v);
     }
+    public void DarkenAtmosphere(int saturation = -70, float vignette = 0.5f)
+    {
+        _storyColorGrading.saturation.value = saturation;
+        _storyVignette.intensity.value = vignette;
+    }
     public void RestoreAtmoshpere()
     {
         _storyColorGrading.saturation.value = 0;
@@ -97,11 +102,11 @@ public class GameManager : MonoBehaviour
     {
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(index);
 
+        _locationChangeCount++;
         while (!asyncLoad.isDone)
         {
             yield return null;
         }
-        _locationChangeCount++;
     }
     public void PauseGame()
     {
@@ -141,7 +146,11 @@ class GameManagerInspector : Editor
         DrawDefaultInspector();
 
         if (GUILayout.Button("Load Scene"))
-            gm.LoadScene(gm._sceneToLoadIndex);
+        {
+            gm._gameStarted = true;
+            TransitionManager.Instance._sceneToTransitionIndex = gm._sceneToLoadIndex;
+            TransitionManager.Instance.FadeOut(Color.black);
+        }
 
         if (GUI.changed)
             EditorUtility.SetDirty(gm);

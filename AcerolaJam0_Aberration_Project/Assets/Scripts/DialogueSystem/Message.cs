@@ -12,6 +12,7 @@ public struct Message
     [Header("Effects")]
     public int _saturationLoss;
     public float _vignetteGain;
+    public bool _glitch;
 
     [Header("Volume")]
     public float _increaseMusicVol;

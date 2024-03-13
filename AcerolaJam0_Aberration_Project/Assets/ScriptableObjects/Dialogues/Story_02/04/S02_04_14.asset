@@ -17,7 +17,21 @@ MonoBehaviour:
     _message: I know who you are.
     _instantText: 0
     _saturationLoss: 0
+    _vignetteGain: 0
+    _glitch: 0
+    _increaseMusicVol: 0
+    _increaseMusicTime: 0
+    _stopMusic: 0
+    _startMusic: 
+    _startVolume: 0
   - _character: {fileID: 11400000, guid: 488dbc8207f26b64e8a33adcf505916f, type: 2}
     _message: You ARE wrong.
     _instantText: 0
     _saturationLoss: 0
+    _vignetteGain: 0
+    _glitch: 1
+    _increaseMusicVol: 0
+    _increaseMusicTime: 0
+    _stopMusic: 0
+    _startMusic: 
+    _startVolume: 0

@@ -23,7 +23,8 @@ public class I_Cashier : MonoBehaviour
     {
         if (!_triggered) return;
 
-        TransitionManager.Instance.FadeOut();
+        if (GameManager.Instance._locationChangeCount == 1)
+            TransitionManager.Instance.FadeOut(Color.black);
     }
     private void OnTriggerEnter(Collider other)
     {

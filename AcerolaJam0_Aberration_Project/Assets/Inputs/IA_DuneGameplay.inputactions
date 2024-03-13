@@ -1,0 +1,45 @@
+{
+    "name": "IA_DuneGameplay",
+    "maps": [
+        {
+            "name": "BallControls",
+            "id": "59ec255e-bd89-495f-9789-84c64eda431a",
+            "actions": [
+                {
+                    "name": "DownSprint",
+                    "type": "Value",
+                    "id": "9b70ce8f-bfba-41a2-b576-d142a4474484",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "d8ebf819-1866-4351-83b9-9efa63af05a8",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DownSprint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e68d77e1-f91c-4dc9-b185-8133ee6fe338",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DownSprint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

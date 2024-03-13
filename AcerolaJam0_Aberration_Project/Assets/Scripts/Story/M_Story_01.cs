@@ -39,6 +39,11 @@ public class M_Story_01 : MonoBehaviour
             player.anim.SetBool("isPutering", false);
             player.anim.SetTrigger("ClosePuter");
         }
+        if (GameManager.Instance._locationChangeCount == 3)
+        {
+            TransitionManager.Instance._sceneToTransitionIndex = 4;
+            TransitionManager.Instance.FadeOut(Color.black);
+        }
     }
     void CheckLocationChangeCount(int i)
     {
@@ -62,6 +67,12 @@ public class M_Story_01 : MonoBehaviour
                 menuCamera.enabled = false;
                 menuCamera.GetComponent<AudioListener>().enabled = false;
                 player.SwitchControllerMode(ControllerMode.SoftLocked);
+                TransitionManager.Instance.FadeIn();
+                AudioManager.Instance.PlayMusicFadeIn("DarkAmbient", 0.2f, 10);
+                player.anim.SetBool("isCurledUp", true);
+                Invoke(nameof(StartReflectionDialogue), 1.5f);
+                GameManager.Instance.RestoreAtmoshpere();
+
                 break;
             case 6:
                 playerCamera.enabled = true;
@@ -74,7 +85,10 @@ public class M_Story_01 : MonoBehaviour
                 break;
         }
     }
-
+    void StartReflectionDialogue()
+    {
+        dialogueTriggers[0].TriggerDialogue();
+    }
     public void StartCameraTransition(float transitionTime) => StartCoroutine(CameraTransition(transitionTime));
     IEnumerator CameraTransition(float transitionTime)
     {
