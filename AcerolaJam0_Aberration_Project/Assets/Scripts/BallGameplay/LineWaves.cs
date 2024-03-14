@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 namespace DunesGameplay
 {
@@ -14,8 +13,8 @@ namespace DunesGameplay
         
         [Header("Line Settings")]
         [SerializeField][Min(5)] int _resolution;
-        [SerializeField] float _amplitude = 1;
-        [SerializeField] float _frequency = 1;
+        public float _amplitude = 1;
+        public float _frequency = 1;
         [SerializeField] Vector2 _xLimits = new Vector2(0, 1);
         [Range(0, 2)]
         [SerializeField] float _startPI = 0;

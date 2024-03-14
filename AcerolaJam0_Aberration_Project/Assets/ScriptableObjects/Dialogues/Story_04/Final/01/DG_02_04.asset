@@ -1,0 +1,111 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e221ce06a82694445aebe54b0ccf4803, type: 3}
+  m_Name: DG_02_04
+  m_EditorClassIdentifier: 
+  messages:
+  - _character: {fileID: 11400000, guid: c09d800d8cf18ca47b03e46c9ac31f6b, type: 2}
+    _message: I-I KILLED HER!!
+    _instantText: 1
+    _isAutomatic: 0
+    _skipTime: 0
+    _saturationLoss: 0
+    _vignetteGain: 0.15
+    _glitch: 0
+    _heartBeat: 1
+    _heartBeatRate: 0.4
+    _increaseMusicVol: 0
+    _increaseMusicTime: 0
+    _stopMusic: 0
+    _startMusic: 
+    _startVolume: 0
+    _startTime: 0
+  - _character: {fileID: 11400000, guid: c09d800d8cf18ca47b03e46c9ac31f6b, type: 2}
+    _message: SHE'S D-DEAD!!!
+    _instantText: 0
+    _isAutomatic: 0
+    _skipTime: 0
+    _saturationLoss: 0
+    _vignetteGain: 0
+    _glitch: 0
+    _heartBeat: 0
+    _heartBeatRate: 0
+    _increaseMusicVol: 0
+    _increaseMusicTime: 0
+    _stopMusic: 0
+    _startMusic: 
+    _startVolume: 0
+    _startTime: 0
+  - _character: {fileID: 11400000, guid: c09d800d8cf18ca47b03e46c9ac31f6b, type: 2}
+    _message: SHE'S GONE!!
+    _instantText: 1
+    _isAutomatic: 0
+    _skipTime: 0
+    _saturationLoss: 0
+    _vignetteGain: 0
+    _glitch: 0
+    _heartBeat: 0
+    _heartBeatRate: 0
+    _increaseMusicVol: 0
+    _increaseMusicTime: 0
+    _stopMusic: 0
+    _startMusic: 
+    _startVolume: 0
+    _startTime: 0
+  - _character: {fileID: 11400000, guid: c09d800d8cf18ca47b03e46c9ac31f6b, type: 2}
+    _message: H-HOW DID IT HAPPEN?!!
+    _instantText: 1
+    _isAutomatic: 0
+    _skipTime: 0
+    _saturationLoss: 0
+    _vignetteGain: 0
+    _glitch: 0
+    _heartBeat: 0
+    _heartBeatRate: 0
+    _increaseMusicVol: 0
+    _increaseMusicTime: 0
+    _stopMusic: 0
+    _startMusic: 
+    _startVolume: 0
+    _startTime: 0
+  - _character: {fileID: 11400000, guid: c09d800d8cf18ca47b03e46c9ac31f6b, type: 2}
+    _message: I-I CAN'T BARE THIS!!
+    _instantText: 1
+    _isAutomatic: 0
+    _skipTime: 0
+    _saturationLoss: 0
+    _vignetteGain: 0
+    _glitch: 0
+    _heartBeat: 0
+    _heartBeatRate: 0
+    _increaseMusicVol: 0
+    _increaseMusicTime: 0
+    _stopMusic: 0
+    _startMusic: 
+    _startVolume: 0
+    _startTime: 0
+  - _character: {fileID: 11400000, guid: c09d800d8cf18ca47b03e46c9ac31f6b, type: 2}
+    _message: THIS IS A NIGHTMARE!!!
+    _instantText: 1
+    _isAutomatic: 0
+    _skipTime: 0
+    _saturationLoss: 0
+    _vignetteGain: 0
+    _glitch: 0
+    _heartBeat: 0
+    _heartBeatRate: 0
+    _increaseMusicVol: 0
+    _increaseMusicTime: 0
+    _stopMusic: 0
+    _startMusic: 
+    _startVolume: 0
+    _startTime: 0

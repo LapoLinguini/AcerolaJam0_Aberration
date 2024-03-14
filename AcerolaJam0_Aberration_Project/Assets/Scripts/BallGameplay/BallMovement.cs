@@ -78,9 +78,8 @@ namespace DunesGameplay
             {
                 alpha = v;
                 newColor.a = alpha;
-                print(alpha);
                 rendered.color = newColor;
-                //print(rendered.color.a);
+
             }).OnComplete(() =>
             {
                 _canMove = true;
@@ -95,7 +94,13 @@ namespace DunesGameplay
                 _trailRenderer.startColor = c;
                 _trailRenderer.endColor = new Color(1, 1, 1, 0);
 
-            }).OnComplete(() => { TransitionManager.Instance._sceneToTransitionIndex = 3; TransitionManager.Instance.FadeOut(Color.white); });
+            }).OnComplete(() =>
+            {
+                TransitionManager.Instance._sceneToTransitionIndex = 3;
+                TransitionManager.Instance.FadeOut(Color.white);
+                if (GameManager.Instance._heartbeatLoop != null)
+                    StopCoroutine(GameManager.Instance._heartbeatLoop);
+            });
         }
         private void OnCollisionEnter2D(Collision2D collision)
         {

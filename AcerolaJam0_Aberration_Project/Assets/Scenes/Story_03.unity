@@ -1229,6 +1229,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _DialogueSequence:
+  - {fileID: 11400000, guid: cb0b32b7ff2298d42a1e7004bc2e6e08, type: 2}
+  - {fileID: 11400000, guid: 376b22d8415af044ba4d9649d8bbbd66, type: 2}
   - {fileID: 11400000, guid: fa52c8329d542fd4b8fecba14631d797, type: 2}
   - {fileID: 11400000, guid: 5633c779c1e06fa4e94fef4518bfc648, type: 2}
   - {fileID: 11400000, guid: 6387d1a52938b5a4fb4b880c17d37f39, type: 2}

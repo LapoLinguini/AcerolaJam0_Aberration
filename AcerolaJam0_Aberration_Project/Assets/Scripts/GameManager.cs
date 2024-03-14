@@ -32,9 +32,13 @@ public class GameManager : MonoBehaviour
 
     bool _gameIsPaused = false;
     float _currentGameTime = 1;
+    public bool _finished = false;
     public static GameManager Instance { get; private set; }
 
     public static Action<bool> OnGamePaused;
+
+    public Coroutine _heartbeatLoop { get; set; } = null;
+    public float _heartbeatInterval { get; set; } = 0.5f;
 
     private void Awake()
     {
@@ -59,14 +63,22 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape) && _gameStarted)
             PauseGame();
 
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-            Time.timeScale = 1;
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-            Time.timeScale = 2;
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-            Time.timeScale = 4;
-        if (Input.GetKeyDown(KeyCode.Alpha6))
-            Time.timeScale = 6;
+        //if (Input.GetKeyDown(KeyCode.Alpha1))
+        //    Time.timeScale = 1;
+        //if (Input.GetKeyDown(KeyCode.Alpha2))
+        //    Time.timeScale = 2;
+        //if (Input.GetKeyDown(KeyCode.Alpha4))
+        //    Time.timeScale = 4;
+        //if (Input.GetKeyDown(KeyCode.Alpha6))
+        //    Time.timeScale = 6;
+    }
+    public IEnumerator Heartbeat()
+    {
+        AudioManager.Instance.PlaySFXRandomPitch("Heartbeat", 0.9f, 0.9f, 1.1f);
+
+        yield return new WaitForSeconds(_heartbeatInterval);
+
+        _heartbeatLoop = StartCoroutine(Heartbeat());
     }
     public void DarkenAtmosphereLerp(int saturationLoss, float vignetteGain)
     {
@@ -87,11 +99,25 @@ public class GameManager : MonoBehaviour
     }
     public void DarkenAtmosphere(int saturation = -70, float vignette = 0.5f)
     {
+        if (_saturationTween != null)
+            _saturationTween.Kill();
+
+        if (_vignetteTween != null)
+            _vignetteTween.Kill();
+
         _storyColorGrading.saturation.value = saturation;
+        _currentSaturationValue = saturation;
+        _storyVignette.intensity.value = vignette;
         _storyVignette.intensity.value = vignette;
     }
     public void RestoreAtmoshpere()
     {
+        if (_saturationTween != null)
+            _saturationTween.Kill();
+
+        if (_vignetteTween != null)
+            _vignetteTween.Kill();
+
         _storyColorGrading.saturation.value = 0;
         _currentSaturationValue = 0;
         _storyVignette.intensity.value = 0.25f;
@@ -110,6 +136,9 @@ public class GameManager : MonoBehaviour
     }
     public void PauseGame()
     {
+        if (!_gameStarted) return;
+        if (_finished) return;
+
         _gameIsPaused = !_gameIsPaused;
 
         Time.timeScale = _gameIsPaused ? 0 : _currentGameTime;
@@ -119,6 +148,11 @@ public class GameManager : MonoBehaviour
         OnGamePaused?.Invoke(_gameIsPaused);
 
         PauseMenu.Instance.SwitchMenuUI(_gameIsPaused);
+
+        if (_gameIsPaused)
+            AudioManager.Instance.OnPauseSounds(true);
+        else
+            AudioManager.Instance.OnPauseSounds(false);
     }
     void CapFrameRate()
     {

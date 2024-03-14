@@ -37,7 +37,7 @@ namespace Story
         bool _interactableInReach = false;
 
         [Header("Look")]
-        [SerializeField] Transform _cameraPosT;
+        public Transform _cameraPosT;
         [SerializeField][Min(0)] float _lookRotMultiplier = 1;
 
         [HideInInspector] public float _maxUpRot = 90;
@@ -48,7 +48,7 @@ namespace Story
         [HideInInspector] public float _maxRightSoftRot = 30;
         [HideInInspector] public float _maxLeftSoftRot = -30;
         public float yRot { get; set; } = 0;
-        float xRot = 0;
+        public float xRot { get; set; } = 0;
 
         Vector3 _moveDirection = Vector2.zero;
         CharacterController controller;
@@ -196,7 +196,7 @@ namespace Story
             else
                 SwitchControllerMode(_controllerMode);
         }
-        public void SwitchControllerMode(ControllerMode controllerMode)
+        public void SwitchControllerMode(ControllerMode controllerMode, float xDegrees = 0)
         {
             _controllerMode = controllerMode;
 
@@ -214,13 +214,13 @@ namespace Story
                     EnableInputActionsSwitch(new[] { IA_move, IA_interact }, false);
                     break;
                 case ControllerMode.Locked:
-                    SlowlyLock();
+                    SlowlyLock(xDegrees);
                     break;
                 default:
                     break;
             }
         }
-        void SlowlyLock()
+        void SlowlyLock(float xDegrees)
         {
             EnableInputActionsSwitch(_inputActions, false);
 
@@ -228,7 +228,7 @@ namespace Story
             _interpolatedAxis = Vector2.zero;
             anim.SetBool("isWalking", _isWalking);
 
-            _cameraPosT.DOLocalRotate(Vector3.zero, 1).SetEase(Ease.InOutSine).OnComplete(() =>
+            _cameraPosT.DOLocalRotate(new Vector3(-xDegrees, 0, 0), 1).SetEase(Ease.InOutSine).OnComplete(() =>
             {
                 xRot = -_cameraPosT.localRotation.eulerAngles.x;
                 yRot = transform.eulerAngles.y;

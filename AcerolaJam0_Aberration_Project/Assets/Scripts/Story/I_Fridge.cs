@@ -78,11 +78,12 @@ public class I_Fridge : MonoBehaviour, IInteractable
     {
         ShelveScene.SetActive(true);
 
-        _player.SwitchControllerMode(ControllerMode.Locked);
+        _player.SwitchControllerMode(ControllerMode.Locked, -10);
         _player.transform.DOMove(_fridgeOpenPosT.position, 2).SetEase(Ease.InOutSine);
         _player.transform.DORotate(Vector3.zero, 2).SetEase(Ease.InOutSine).OnComplete(() =>
         {
             _player.yRot = _player.transform.eulerAngles.y;
+            _player.xRot = -_player._cameraPosT.localRotation.eulerAngles.x;
         });
 
         _fridgeDoor.DOLocalRotate(new Vector3(0, 0, -117), 2.5f).SetEase(Ease.InOutSine).OnComplete(() => StartCoroutine(StartDialogue()));

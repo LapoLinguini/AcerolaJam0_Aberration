@@ -1,10 +1,8 @@
 using DG.Tweening;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
-using static Unity.VisualScripting.Member;
 
 public class AudioManager : MonoBehaviour
 {
@@ -186,6 +184,7 @@ public class AudioManager : MonoBehaviour
             if (source.clip.name == name)
             {
                 source.Stop();
+                sfxLoopSource.Remove(source);
                 Destroy(source);
             }
         }
@@ -196,6 +195,28 @@ public class AudioManager : MonoBehaviour
         {
             source.Stop();
             Destroy(source);
+        }
+        sfxLoopSource.Clear();
+    }
+    public void StopAllSFXLoopLerp(float fadeTime)
+    {
+        foreach (var source in sfxLoopSource)
+        {
+            float startVolume = source.volume;
+            DOVirtual.Float(startVolume, 0, fadeTime, v => source.volume = v).OnComplete(() =>
+            {
+                source.Stop();
+                Destroy(source);
+            });
+        }
+        sfxLoopSource.Clear();
+    }
+    public void IncreaseSFXLoopVolume(float volumeIncrease, float increaseTime)
+    {
+        foreach (var source in sfxLoopSource)
+        {
+            float startVol = source.volume;
+            DOVirtual.Float(startVol, startVol + volumeIncrease, increaseTime, v => source.volume = v);
         }
     }
 

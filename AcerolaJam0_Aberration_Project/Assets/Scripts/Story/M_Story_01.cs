@@ -70,7 +70,7 @@ public class M_Story_01 : MonoBehaviour
                 TransitionManager.Instance.FadeIn();
                 AudioManager.Instance.PlayMusicFadeIn("DarkAmbient", 0.2f, 10);
                 player.anim.SetBool("isCurledUp", true);
-                Invoke(nameof(StartReflectionDialogue), 1.5f);
+                Invoke(nameof(StartReflectionDialogue), 3.5f);
                 GameManager.Instance.RestoreAtmoshpere();
 
                 break;

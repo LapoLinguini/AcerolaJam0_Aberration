@@ -129,13 +129,29 @@ public class DialogueManager : MonoBehaviour
             AudioManager.Instance.StopAllMusicFade(3f);
 
         if (activeMessage._startMusic != null && activeMessage._startMusic != "")
-            AudioManager.Instance.PlayMusicFadeIn(activeMessage._startMusic, activeMessage._startVolume, 6f);
+            AudioManager.Instance.PlayMusicFadeIn(activeMessage._startMusic, activeMessage._startVolume, activeMessage._startTime);
 
         if (activeMessage._increaseMusicVol != 0)
             AudioManager.Instance.IncreaseMusicVolume(activeMessage._increaseMusicVol, activeMessage._increaseMusicTime);
 
+        if (activeMessage._increaseSFXVol != 0)
+            AudioManager.Instance.IncreaseSFXLoopVolume(activeMessage._increaseSFXVol, activeMessage._increaseSFXTime);
+
         if (activeMessage._glitch)
             OnGlitchedEffect?.Invoke();
+
+        if (activeMessage._heartBeat)
+        {
+            GameManager.Instance._heartbeatInterval = activeMessage._heartBeatRate;
+            StartCoroutine(GameManager.Instance.Heartbeat());
+        }
+        else
+        {
+            if (activeMessage._heartBeatRate != 0)
+            {
+                GameManager.Instance._heartbeatInterval = activeMessage._heartBeatRate;
+            }
+        }
 
         //Turns on the dialogue UI
         _dialogueUI.SetActive(true);
@@ -157,16 +173,35 @@ public class DialogueManager : MonoBehaviour
             }
             _finishedShowingText = true;
             _canSkip = true;
-            _canSkipIcon.gameObject.SetActive(true);
-            anim.Play();
+            if (!_currentMessages[_activeMessage]._isAutomatic)
+            {
+                _canSkipIcon.gameObject.SetActive(true);
+                anim.Play();
+            }
+            else
+            {
+                yield return new WaitForSeconds(_currentMessages[_activeMessage]._skipTime);
+                _canSkip = false;
+                StartCoroutine(NextMessage());
+            }
         }
         else
         {
             _dialogueText.text = _currentMessages[_activeMessage]._message;
             _finishedShowingText = true;
             _canSkip = true;
-            _canSkipIcon.gameObject.SetActive(true);
-            anim.Play();
+
+            if (!_currentMessages[_activeMessage]._isAutomatic)
+            {
+                _canSkipIcon.gameObject.SetActive(true);
+                anim.Play();
+            }
+            else
+            {
+                yield return new WaitForSeconds(_currentMessages[_activeMessage]._skipTime);
+                _canSkip = false;
+                StartCoroutine(NextMessage());
+            }
         }
     }
     IEnumerator NextMessage()
@@ -254,6 +289,7 @@ public class DialogueManager : MonoBehaviour
     void SkipText(InputAction.CallbackContext context)
     {
         if (!_isTalking) return;
+        //if (_currentMessages[_activeMessage]._isAutomatic) return;
 
         if (_canSkip)
         {

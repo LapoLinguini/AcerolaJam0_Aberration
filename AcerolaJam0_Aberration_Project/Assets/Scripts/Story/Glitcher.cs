@@ -38,15 +38,18 @@ public class Glitcher : MonoBehaviour
             _objectsToGlitch.SetActive(_glitchSetActive);
             if (_optionalInverseObjects != null)
                 _optionalInverseObjects.SetActive(!_glitchSetActive);
-            AudioManager.Instance.PlaySFX("GlitchEffect", 0.25f);
+            AudioManager.Instance.PlaySFXLoop("GlitchEffect", 0.25f);
 
             yield return new WaitForSeconds(_glitchSequences[glitchIndex].glitchSequence[i]._duration);
 
-            _objectsToGlitch.SetActive(!_glitchSetActive);
-            if (_optionalInverseObjects != null)
-                _optionalInverseObjects.SetActive(_glitchSetActive);
-            GameManager.Instance.RestoreAtmoshpere();
-            AudioManager.Instance.StopSFX();
+            if (!_glitchSequences[glitchIndex].glitchSequence[i]._doNotRevert)
+            {
+                _objectsToGlitch.SetActive(!_glitchSetActive);
+                if (_optionalInverseObjects != null)
+                    _optionalInverseObjects.SetActive(_glitchSetActive);
+                GameManager.Instance.RestoreAtmoshpere();
+                AudioManager.Instance.StopAllSFXLoop();
+            }
 
             yield return new WaitForSeconds(_glitchSequences[glitchIndex].glitchSequence[i]._interval);
         }
